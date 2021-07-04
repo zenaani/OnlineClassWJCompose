@@ -1,7 +1,5 @@
 package com.example.meditation
 
-import android.content.Intent
-import android.net.Uri
 import androidx.annotation.Px
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,6 +21,41 @@ import androidx.compose.ui.text.style.TextDirection.Companion.Content
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavController
+
+@Composable
+fun Monday(navController: NavController) {
+    Button(modifier = Modifier.fillMaxSize(),onClick = {navController.navigate("tuesday")}) {
+        Text(text = "Tuesday")
+    }
+    TimeTableGrid("CAM","SS", "AC", "PE", "COI")
+}
+
+@Composable
+fun Tuesday(navController: NavController) {
+    Button(modifier = Modifier.fillMaxSize(),onClick = {navController.navigate("monday")}) {
+        Text(text = "Monday")
+    }
+    TimeTableGrid("AC", "PE", "COI","CAM","SS", )
+}
+
+@Composable
+fun Profile(navController: NavController) {
+    /*...*/
+    Button(onClick = { navController.navigate("friendslist") }) {
+        Text(text = "Navigate next")
+    }
+    /*...*/
+}
+
+@Composable
+fun FriendsList(navController: NavController) {
+    /*...*/
+    Button(onClick = { navController.navigate("profile") }) {
+        Text(text = "Navigate Shit")
+    }
+    /*...*/
+}
 
 
 @Composable
@@ -88,15 +121,19 @@ fun WeekDaysSelection() {
     }
 }
 
+//Tried creating a data class and passing the list directly but only one box appears when tested
+//TimeTableGrid(list: List<TimeTable>)
+//Already tried calling list
+//Try calling list[it] - (Error)
 
 @Composable
-fun TimeTableGrid() {
+fun TimeTableGrid(first: String, second: String, third: String, fourth: String, fifth: String) {
 
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(14.dp))
             .fillMaxSize()
-            .background(color = PrimaryColor)
+            .background(color = Color.Transparent)
             .padding(25.dp)
     ) {
 
@@ -138,7 +175,7 @@ fun TimeTableGrid() {
             LazyColumn(modifier = Modifier.weight(0.5f)) {
 
                 itemsIndexed(
-                    listOf("SS", "AC", "Mat", "COI", "PE")
+                    listOf(first, second, third, fourth, fifth)
                 ) { index, subject ->
 
                     Button(
@@ -148,6 +185,7 @@ fun TimeTableGrid() {
                             .size(95.dp)
                             .background(color = Color.White),
                         onClick = {
+
 
                         }) {
 
